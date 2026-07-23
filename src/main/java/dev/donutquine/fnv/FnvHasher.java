@@ -6,29 +6,38 @@ import java.math.BigInteger;
  * Inspired by <a href="https://github.com/jakedouglas/fnv-java">fnv-java</a>.
  */
 public class FnvHasher {
-    private static final BigInteger INIT32 = new BigInteger("811c9dc5", 16);
-    private static final BigInteger INIT64 = new BigInteger("cbf29ce484222325", 16);
-    private static final BigInteger PRIME32 = new BigInteger("01000193", 16);
-    private static final BigInteger PRIME64 = new BigInteger("100000001b3", 16);
-    private static final BigInteger MOD32 = new BigInteger("2").pow(32);
-    private static final BigInteger MOD64 = new BigInteger("2").pow(64);
-
     private FnvHasher() {}
 
+    public static int fnv0_32(byte[] data) {
+        return (int) new IntFnv1Hasher(0, FnvConstants.PRIME32).update(data).digest();
+    }
+
+    public static int fnv0a_32(byte[] data) {
+        return (int) new IntFnv1aHasher(0, FnvConstants.PRIME32).update(data).digest();
+    }
+
+    public static long fnv0_64(byte[] data) {
+        return new LongFnv1Hasher(0, FnvConstants.PRIME64).update(data).digest();
+    }
+
+    public static long fnv0a_64(byte[] data) {
+        return new LongFnv1aHasher(0, FnvConstants.PRIME64).update(data).digest();
+    }
+
     public static int fnv1_32(byte[] data) {
-        return fnv1(data, INIT32, PRIME32, MOD32).intValue();
+        return (int) new IntFnv1Hasher().update(data).digest();
     }
 
     public static int fnv1a_32(byte[] data) {
-        return fnv1a(data, INIT32, PRIME32, MOD32).intValue();
+        return (int) new IntFnv1aHasher().update(data).digest();
     }
 
     public static long fnv1_64(byte[] data) {
-        return fnv1(data, INIT64, PRIME64, MOD64).longValue();
+        return new LongFnv1Hasher().update(data).digest();
     }
 
     public static long fnv1a_64(byte[] data) {
-        return fnv1a(data, INIT64, PRIME64, MOD64).longValue();
+        return new LongFnv1aHasher().update(data).digest();
     }
 
     /**

@@ -1,0 +1,36 @@
+package dev.donutquine.fnv;
+
+import java.math.BigInteger;
+
+/**
+ * @since 1.1.0
+ */
+public class BigIntegerFnv1Hasher implements Hasher {
+    public static final BigInteger INIT32 = BigInteger.valueOf(FnvConstants.INIT32);
+    public static final BigInteger INIT64 = BigInteger.valueOf(FnvConstants.INIT64);
+    public static final BigInteger PRIME32 = BigInteger.valueOf(FnvConstants.PRIME32);
+    public static final BigInteger PRIME64 = BigInteger.valueOf(FnvConstants.PRIME64);
+    public static final BigInteger MOD32 = new BigInteger("2").pow(32);
+    public static final BigInteger MOD64 = new BigInteger("2").pow(64);
+
+    private BigInteger hash;
+	private final BigInteger prime, mod;
+
+    public BigIntegerFnv1Hasher(BigInteger init, BigInteger prime, BigInteger mod) {
+        this.hash = init;
+        this.prime = prime;
+        this.mod = mod;
+    }
+
+	@Override
+	public long digest() {
+        return hash.longValue();
+	}
+
+	@Override
+	public Hasher update(byte value) {
+        BigInteger hash = this.hash.multiply(prime).mod(mod);
+        this.hash = hash.xor(BigInteger.valueOf((int) value & 0xff));
+        return this;
+	}
+}
