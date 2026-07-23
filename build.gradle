@@ -24,6 +24,16 @@ repositories {
 
 dependencies {
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: project.slf4j_version
+    
+    testImplementation 'org.junit.jupiter:junit-jupiter:6.0.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+    }
 }
 
 tasks.register("sourcesJar", Jar) {
