@@ -1,0 +1,95 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+    
+    // https://github.com/yananhub/flying-gradle-plugin
+    id "tech.yanand.maven-central-publish" version "1.3.0"
+}
+
+
+group = 'dev.donutquine'
+version = project.version
+
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.github.com/danila-schelkov/*")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
+dependencies {
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: project.slf4j_version
+}
+
+tasks.register("sourcesJar", Jar) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.allSource)     
+    
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.register("javadocJar", Jar) {
+    archiveClassifier.set("javadoc")
+    from(tasks.javadoc)
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact(tasks.named("sourcesJar").get())
+            artifact(tasks.named("javadocJar").get())
+
+            pom {
+                name = "fnv-hasher"
+                description = "A Java library for calculating Fowler-Noll-Vo hash."
+                url = "https://github.com/danila-schelkov/fnv-hasher"
+
+                licenses {
+                    license {
+                        name = "MIT License"
+                        url = "https://opensource.org/licenses/MIT"
+                        distribution = "repo"
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = "danila-schelkov"
+                        name = "Danila Schelkov"
+                        email = "me@donutquine.dev"
+                    }
+                }
+
+                scm {
+                    url = "https://github.com/danila-schelkov/fnv-hasher"
+                    connection = "scm:git:https://github.com/danila-schelkov/fnv-hasher.git"
+                    developerConnection = "scm:git:ssh://git@github.com/danila-schelkov/fnv-hasher.git"
+                }
+            }
+        }
+    }
+}
+
+signing {
+    useInMemoryPgpKeys(
+        findProperty("signing.key") as String,
+        findProperty("signing.password") as String
+    )
+    sign publishing.publications.mavenJava
+}
+
+import java.nio.charset.StandardCharsets
+
+mavenCentral {
+    def username = findProperty("sonatype.username") ?: System.getenv("SONATYPE_USERNAME")
+    def password = findProperty("sonatype.password") ?: System.getenv("SONATYPE_PASSWORD")
+
+    def credentials = "${username}:${password}"
+    authToken = credentials.getBytes(StandardCharsets.UTF_8).encodeBase64().toString()
+}
