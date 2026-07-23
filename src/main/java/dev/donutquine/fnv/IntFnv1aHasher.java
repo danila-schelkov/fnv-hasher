@@ -3,7 +3,7 @@ package dev.donutquine.fnv;
 /**
  * @since 1.1.0
  */
-public class IntFnv1aHasher implements Hasher {
+public class IntFnv1aHasher implements IntHasher {
     public int hash;
     public final int prime;
 
@@ -17,12 +17,12 @@ public class IntFnv1aHasher implements Hasher {
 	}
 
 	@Override
-	public long digest() {
+	public int digest() {
         return hash;
 	}
 
 	@Override
-	public Hasher update(byte value) {
+	public IntHasher update(byte value) {
         int hash = this.hash ^ ((int) value & 0xff);
         this.hash = hash * this.prime;
         return this;

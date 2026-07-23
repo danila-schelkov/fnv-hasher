@@ -3,24 +3,22 @@ package dev.donutquine.fnv;
 /**
  * @since 1.1.0
  */
-public interface Hasher {
-    public long digest();
+public interface Hasher<T extends Hasher<T>> {
+    public T update(byte value);
 
-    public Hasher update(byte value);
-
-    public default Hasher update(short value) {
+    public default T update(short value) {
         return this.update((byte) (value >> 0))
             .update((byte) (value >> 8));
     }
 
-    public default Hasher update(int value) {
+    public default T update(int value) {
         return this.update((byte) (value >> 0))
             .update((byte) (value >> 8))
             .update((byte) (value >> 16))
             .update((byte) (value >> 24));
     }
 
-    public default Hasher update(long value) {
+    public default T update(long value) {
         return this.update((byte) (value >> 0))
             .update((byte) (value >> 8))
             .update((byte) (value >> 16))
@@ -31,35 +29,35 @@ public interface Hasher {
             .update((byte) (value >> 56));
     }
 
-    public default Hasher update(byte[] values) {
-        Hasher hasher = this;
+    public default T update(byte[] values) {
+        Hasher<T> hasher = this;
         for (byte b : values) {
             hasher = hasher.update(b);
         }
-        return hasher;
+        return (T) hasher;
     }
 
-    public default Hasher update(short[] values) {
-        Hasher hasher = this;
+    public default T update(short[] values) {
+        Hasher<T> hasher = this;
         for (short b : values) {
             hasher = hasher.update(b);
         }
-        return hasher;
+        return (T) hasher;
     }
 
-    public default Hasher update(int[] values) {
-        Hasher hasher = this;
+    public default T update(int[] values) {
+        Hasher<T> hasher = this;
         for (int b : values) {
             hasher = hasher.update(b);
         }
-        return hasher;
+        return (T) hasher;
     }
 
-    public default Hasher update(long[] values) {
-        Hasher hasher = this;
+    public default T update(long[] values) {
+        Hasher<T> hasher = this;
         for (long b : values) {
             hasher = hasher.update(b);
         }
-        return hasher;
+        return (T) hasher;
     }
 }

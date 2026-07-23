@@ -16,8 +16,8 @@ class FnvHasherTest {
     @Test
     void intFnv1_singleByte_values() {
         for (byte b = -128; b < 127; b++) {
-            long expected = FnvHasher.fnv1_32(new byte[]{b});
-            long actual = new IntFnv1Hasher().update(b).digest();
+            int expected = FnvHasher.fnv1_32(new byte[]{b});
+            int actual = new IntFnv1Hasher().update(b).digest();
             assertEquals(expected, actual, "Failed for byte value " + (b & 0xFF));
         }
     }
@@ -26,8 +26,8 @@ class FnvHasherTest {
     void intFnv1_short() {
         short value = 0x1234;
         byte[] asBytes = new byte[]{(byte) (value >> 0), (byte) (value >> 8)};
-        long expected = FnvHasher.fnv1_32(asBytes);
-        long actual = new IntFnv1Hasher().update(value).digest();
+        int expected = FnvHasher.fnv1_32(asBytes);
+        int actual = new IntFnv1Hasher().update(value).digest();
         assertEquals(expected, actual);
     }
 
@@ -35,8 +35,8 @@ class FnvHasherTest {
     void intFnv1_short_values() {
         for (short s = -32768; s < 32767; s++) {
             byte[] asBytes = new byte[]{(byte) (s >> 0), (byte) (s >> 8)};
-            long expected = FnvHasher.fnv1_32(asBytes);
-            long actual = new IntFnv1Hasher().update(s).digest();
+            int expected = FnvHasher.fnv1_32(asBytes);
+            int actual = new IntFnv1Hasher().update(s).digest();
             assertEquals(expected, actual, "Failed for short value " + s);
         }
     }
@@ -48,8 +48,8 @@ class FnvHasherTest {
             (byte) (value >> 0), (byte) (value >> 8),
             (byte) (value >> 16), (byte) (value >> 24)
         };
-        long expected = FnvHasher.fnv1_32(asBytes);
-        long actual = new IntFnv1Hasher().update(value).digest();
+        int expected = FnvHasher.fnv1_32(asBytes);
+        int actual = new IntFnv1Hasher().update(value).digest();
         assertEquals(expected, actual);
     }
 
@@ -60,8 +60,8 @@ class FnvHasherTest {
                 (byte) (i >> 0), (byte) (i >> 8),
                 (byte) (i >> 16), (byte) (i >> 24)
             };
-            long expected = FnvHasher.fnv1_32(asBytes);
-            long actual = new IntFnv1Hasher().update(i).digest();
+            int expected = FnvHasher.fnv1_32(asBytes);
+            int actual = new IntFnv1Hasher().update(i).digest();
             assertEquals(expected, actual, "Failed for int value " + i);
         }
     }
@@ -75,8 +75,8 @@ class FnvHasherTest {
             (byte) (value >> 32), (byte) (value >> 40),
             (byte) (value >> 48), (byte) (value >> 56)
         };
-        long expected = FnvHasher.fnv1_32(asBytes);
-        long actual = new IntFnv1Hasher().update(value).digest();
+        int expected = FnvHasher.fnv1_32(asBytes);
+        int actual = new IntFnv1Hasher().update(value).digest();
         assertEquals(expected, actual);
     }
 
@@ -89,8 +89,8 @@ class FnvHasherTest {
                 (byte) (l >> 32), (byte) (l >> 40),
                 (byte) (l >> 48), (byte) (l >> 56)
             };
-            long expected = FnvHasher.fnv1_32(asBytes);
-            long actual = new IntFnv1Hasher().update(l).digest();
+            int expected = FnvHasher.fnv1_32(asBytes);
+            int actual = new IntFnv1Hasher().update(l).digest();
             assertEquals(expected, actual, "Failed for long value " + l);
         }
     }
@@ -98,16 +98,16 @@ class FnvHasherTest {
     @Test
     void intFnv1_byteArray() {
         byte[] data = "hello world".getBytes();
-        long expected = FnvHasher.fnv1_32(data);
-        long actual = new IntFnv1Hasher().update(data).digest();
+        int expected = FnvHasher.fnv1_32(data);
+        int actual = new IntFnv1Hasher().update(data).digest();
         assertEquals(expected, actual);
     }
 
     @Test
     void intFnv1_byteArray_empty() {
         byte[] data = new byte[0];
-        long expected = FnvHasher.fnv1_32(data);
-        long actual = new IntFnv1Hasher().update(data).digest();
+        int expected = FnvHasher.fnv1_32(data);
+        int actual = new IntFnv1Hasher().update(data).digest();
         assertEquals(expected, actual);
     }
 
@@ -119,8 +119,8 @@ class FnvHasherTest {
             asBytes[i * 2] = (byte) (values[i] >> 0);
             asBytes[i * 2 + 1] = (byte) (values[i] >> 8);
         }
-        long expected = FnvHasher.fnv1_32(asBytes);
-        long actual = new IntFnv1Hasher().update(values).digest();
+        int expected = FnvHasher.fnv1_32(asBytes);
+        int actual = new IntFnv1Hasher().update(values).digest();
         assertEquals(expected, actual);
     }
 
@@ -134,8 +134,8 @@ class FnvHasherTest {
             asBytes[i * 4 + 2] = (byte) (values[i] >> 16);
             asBytes[i * 4 + 3] = (byte) (values[i] >> 24);
         }
-        long expected = FnvHasher.fnv1_32(asBytes);
-        long actual = new IntFnv1Hasher().update(values).digest();
+        int expected = FnvHasher.fnv1_32(asBytes);
+        int actual = new IntFnv1Hasher().update(values).digest();
         assertEquals(expected, actual);
     }
 
@@ -153,16 +153,16 @@ class FnvHasherTest {
             asBytes[i * 8 + 6] = (byte) (values[i] >> 48);
             asBytes[i * 8 + 7] = (byte) (values[i] >> 56);
         }
-        long expected = FnvHasher.fnv1_32(asBytes);
-        long actual = new IntFnv1Hasher().update(values).digest();
+        int expected = FnvHasher.fnv1_32(asBytes);
+        int actual = new IntFnv1Hasher().update(values).digest();
         assertEquals(expected, actual);
     }
 
     @Test
     void intFnv1a_singleByte() {
         for (byte b = -128; b < 127; b++) {
-            long expected = FnvHasher.fnv1a_32(new byte[]{b});
-            long actual = new IntFnv1aHasher().update(b).digest();
+            int expected = FnvHasher.fnv1a_32(new byte[]{b});
+            int actual = new IntFnv1aHasher().update(b).digest();
             assertEquals(expected, actual, "Failed for byte value " + (b & 0xFF));
         }
     }
@@ -171,8 +171,8 @@ class FnvHasherTest {
     void intFnv1a_short() {
         short value = 0x1234;
         byte[] asBytes = new byte[]{(byte) (value >> 0), (byte) (value >> 8)};
-        long expected = FnvHasher.fnv1a_32(asBytes);
-        long actual = new IntFnv1aHasher().update(value).digest();
+        int expected = FnvHasher.fnv1a_32(asBytes);
+        int actual = new IntFnv1aHasher().update(value).digest();
         assertEquals(expected, actual);
     }
 
@@ -180,8 +180,8 @@ class FnvHasherTest {
     void intFnv1a_short_values() {
         for (short s = -32768; s < 32767; s++) {
             byte[] asBytes = new byte[]{(byte) (s >> 0), (byte) (s >> 8)};
-            long expected = FnvHasher.fnv1a_32(asBytes);
-            long actual = new IntFnv1aHasher().update(s).digest();
+            int expected = FnvHasher.fnv1a_32(asBytes);
+            int actual = new IntFnv1aHasher().update(s).digest();
             assertEquals(expected, actual, "Failed for short value " + s);
         }
     }
@@ -193,8 +193,8 @@ class FnvHasherTest {
             (byte) (value >> 0), (byte) (value >> 8),
             (byte) (value >> 16), (byte) (value >> 24)
         };
-        long expected = FnvHasher.fnv1a_32(asBytes);
-        long actual = new IntFnv1aHasher().update(value).digest();
+        int expected = FnvHasher.fnv1a_32(asBytes);
+        int actual = new IntFnv1aHasher().update(value).digest();
         assertEquals(expected, actual);
     }
 
@@ -205,8 +205,8 @@ class FnvHasherTest {
                 (byte) (i >> 0), (byte) (i >> 8),
                 (byte) (i >> 16), (byte) (i >> 24)
             };
-            long expected = FnvHasher.fnv1a_32(asBytes);
-            long actual = new IntFnv1aHasher().update(i).digest();
+            int expected = FnvHasher.fnv1a_32(asBytes);
+            int actual = new IntFnv1aHasher().update(i).digest();
             assertEquals(expected, actual, "Failed for int value " + i);
         }
     }
@@ -220,8 +220,8 @@ class FnvHasherTest {
             (byte) (value >> 32), (byte) (value >> 40),
             (byte) (value >> 48), (byte) (value >> 56)
         };
-        long expected = FnvHasher.fnv1a_32(asBytes);
-        long actual = new IntFnv1aHasher().update(value).digest();
+        int expected = FnvHasher.fnv1a_32(asBytes);
+        int actual = new IntFnv1aHasher().update(value).digest();
         assertEquals(expected, actual);
     }
 
@@ -234,8 +234,8 @@ class FnvHasherTest {
                 (byte) (l >> 32), (byte) (l >> 40),
                 (byte) (l >> 48), (byte) (l >> 56)
             };
-            long expected = FnvHasher.fnv1a_32(asBytes);
-            long actual = new IntFnv1aHasher().update(l).digest();
+            int expected = FnvHasher.fnv1a_32(asBytes);
+            int actual = new IntFnv1aHasher().update(l).digest();
             assertEquals(expected, actual, "Failed for long value " + l);
         }
     }
@@ -243,16 +243,16 @@ class FnvHasherTest {
     @Test
     void intFnv1a_byteArray() {
         byte[] data = "hello world".getBytes();
-        long expected = FnvHasher.fnv1a_32(data);
-        long actual = new IntFnv1aHasher().update(data).digest();
+        int expected = FnvHasher.fnv1a_32(data);
+        int actual = new IntFnv1aHasher().update(data).digest();
         assertEquals(expected, actual);
     }
 
     @Test
     void intFnv1a_byteArray_empty() {
         byte[] data = new byte[0];
-        long expected = FnvHasher.fnv1a_32(data);
-        long actual = new IntFnv1aHasher().update(data).digest();
+        int expected = FnvHasher.fnv1a_32(data);
+        int actual = new IntFnv1aHasher().update(data).digest();
         assertEquals(expected, actual);
     }
 
@@ -264,8 +264,8 @@ class FnvHasherTest {
             asBytes[i * 2] = (byte) (values[i] >> 0);
             asBytes[i * 2 + 1] = (byte) (values[i] >> 8);
         }
-        long expected = FnvHasher.fnv1a_32(asBytes);
-        long actual = new IntFnv1aHasher().update(values).digest();
+        int expected = FnvHasher.fnv1a_32(asBytes);
+        int actual = new IntFnv1aHasher().update(values).digest();
         assertEquals(expected, actual);
     }
 
@@ -279,8 +279,8 @@ class FnvHasherTest {
             asBytes[i * 4 + 2] = (byte) (values[i] >> 16);
             asBytes[i * 4 + 3] = (byte) (values[i] >> 24);
         }
-        long expected = FnvHasher.fnv1a_32(asBytes);
-        long actual = new IntFnv1aHasher().update(values).digest();
+        int expected = FnvHasher.fnv1a_32(asBytes);
+        int actual = new IntFnv1aHasher().update(values).digest();
         assertEquals(expected, actual);
     }
 
@@ -298,8 +298,8 @@ class FnvHasherTest {
             asBytes[i * 8 + 6] = (byte) (values[i] >> 48);
             asBytes[i * 8 + 7] = (byte) (values[i] >> 56);
         }
-        long expected = FnvHasher.fnv1a_32(asBytes);
-        long actual = new IntFnv1aHasher().update(values).digest();
+        int expected = FnvHasher.fnv1a_32(asBytes);
+        int actual = new IntFnv1aHasher().update(values).digest();
         assertEquals(expected, actual);
     }
 
@@ -602,12 +602,12 @@ class FnvHasherTest {
                 BigIntegerFnv1Hasher.PRIME32,
                 BigIntegerFnv1Hasher.MOD32
             );
-            long actual = new BigIntegerFnv1Hasher(
+            BigInteger actual = new BigIntegerFnv1Hasher(
                 BigIntegerFnv1Hasher.INIT32,
                 BigIntegerFnv1Hasher.PRIME32,
                 BigIntegerFnv1Hasher.MOD32
             ).update(b).digest();
-            assertEquals(expected.longValue(), actual, "Failed for byte value " + (b & 0xFF));
+            assertEquals(expected, actual, "Failed for byte value " + (b & 0xFF));
         }
     }
 
@@ -621,12 +621,12 @@ class FnvHasherTest {
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         );
-        long actual = new BigIntegerFnv1Hasher(
+        BigInteger actual = new BigIntegerFnv1Hasher(
             BigIntegerFnv1Hasher.INIT32,
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         ).update(value).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -642,12 +642,12 @@ class FnvHasherTest {
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         );
-        long actual = new BigIntegerFnv1Hasher(
+        BigInteger actual = new BigIntegerFnv1Hasher(
             BigIntegerFnv1Hasher.INIT32,
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         ).update(value).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -665,12 +665,12 @@ class FnvHasherTest {
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         );
-        long actual = new BigIntegerFnv1Hasher(
+        BigInteger actual = new BigIntegerFnv1Hasher(
             BigIntegerFnv1Hasher.INIT32,
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         ).update(value).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -682,12 +682,12 @@ class FnvHasherTest {
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         );
-        long actual = new BigIntegerFnv1Hasher(
+        BigInteger actual = new BigIntegerFnv1Hasher(
             BigIntegerFnv1Hasher.INIT32,
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         ).update(data).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -699,12 +699,12 @@ class FnvHasherTest {
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         );
-        long actual = new BigIntegerFnv1Hasher(
+        BigInteger actual = new BigIntegerFnv1Hasher(
             BigIntegerFnv1Hasher.INIT32,
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         ).update(data).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -721,12 +721,12 @@ class FnvHasherTest {
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         );
-        long actual = new BigIntegerFnv1Hasher(
+        BigInteger actual = new BigIntegerFnv1Hasher(
             BigIntegerFnv1Hasher.INIT32,
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         ).update(values).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -745,12 +745,12 @@ class FnvHasherTest {
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         );
-        long actual = new BigIntegerFnv1Hasher(
+        BigInteger actual = new BigIntegerFnv1Hasher(
             BigIntegerFnv1Hasher.INIT32,
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         ).update(values).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -773,12 +773,12 @@ class FnvHasherTest {
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         );
-        long actual = new BigIntegerFnv1Hasher(
+        BigInteger actual = new BigIntegerFnv1Hasher(
             BigIntegerFnv1Hasher.INIT32,
             BigIntegerFnv1Hasher.PRIME32,
             BigIntegerFnv1Hasher.MOD32
         ).update(values).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -790,12 +790,12 @@ class FnvHasherTest {
                 BigIntegerFnv1aHasher.PRIME32,
                 BigIntegerFnv1aHasher.MOD32
             );
-            long actual = new BigIntegerFnv1aHasher(
+            BigInteger actual = new BigIntegerFnv1aHasher(
                 BigIntegerFnv1aHasher.INIT32,
                 BigIntegerFnv1aHasher.PRIME32,
                 BigIntegerFnv1aHasher.MOD32
             ).update(b).digest();
-            assertEquals(expected.longValue(), actual, "Failed for byte value " + (b & 0xFF));
+            assertEquals(expected, actual, "Failed for byte value " + (b & 0xFF));
         }
     }
 
@@ -809,12 +809,12 @@ class FnvHasherTest {
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         );
-        long actual = new BigIntegerFnv1aHasher(
+        BigInteger actual = new BigIntegerFnv1aHasher(
             BigIntegerFnv1aHasher.INIT32,
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         ).update(value).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -830,12 +830,12 @@ class FnvHasherTest {
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         );
-        long actual = new BigIntegerFnv1aHasher(
+        BigInteger actual = new BigIntegerFnv1aHasher(
             BigIntegerFnv1aHasher.INIT32,
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         ).update(value).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -853,12 +853,12 @@ class FnvHasherTest {
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         );
-        long actual = new BigIntegerFnv1aHasher(
+        BigInteger actual = new BigIntegerFnv1aHasher(
             BigIntegerFnv1aHasher.INIT32,
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         ).update(value).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -870,12 +870,12 @@ class FnvHasherTest {
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         );
-        long actual = new BigIntegerFnv1aHasher(
+        BigInteger actual = new BigIntegerFnv1aHasher(
             BigIntegerFnv1aHasher.INIT32,
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         ).update(data).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -887,12 +887,12 @@ class FnvHasherTest {
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         );
-        long actual = new BigIntegerFnv1aHasher(
+        BigInteger actual = new BigIntegerFnv1aHasher(
             BigIntegerFnv1aHasher.INIT32,
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         ).update(data).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -909,12 +909,12 @@ class FnvHasherTest {
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         );
-        long actual = new BigIntegerFnv1aHasher(
+        BigInteger actual = new BigIntegerFnv1aHasher(
             BigIntegerFnv1aHasher.INIT32,
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         ).update(values).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -933,12 +933,12 @@ class FnvHasherTest {
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         );
-        long actual = new BigIntegerFnv1aHasher(
+        BigInteger actual = new BigIntegerFnv1aHasher(
             BigIntegerFnv1aHasher.INIT32,
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         ).update(values).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -961,12 +961,12 @@ class FnvHasherTest {
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         );
-        long actual = new BigIntegerFnv1aHasher(
+        BigInteger actual = new BigIntegerFnv1aHasher(
             BigIntegerFnv1aHasher.INIT32,
             BigIntegerFnv1aHasher.PRIME32,
             BigIntegerFnv1aHasher.MOD32
         ).update(values).digest();
-        assertEquals(expected.longValue(), actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -978,12 +978,12 @@ class FnvHasherTest {
                 BigIntegerFnv1Hasher.PRIME64,
                 BigIntegerFnv1Hasher.MOD64
             );
-            long actual = new BigIntegerFnv1Hasher(
+            BigInteger actual = new BigIntegerFnv1Hasher(
                 BigIntegerFnv1Hasher.INIT64,
                 BigIntegerFnv1Hasher.PRIME64,
                 BigIntegerFnv1Hasher.MOD64
             ).update(b).digest();
-            assertEquals(expected.longValue(), actual, "Failed for byte value " + (b & 0xFF));
+            assertEquals(expected, actual, "Failed for byte value " + (b & 0xFF));
         }
     }
 
@@ -996,12 +996,12 @@ class FnvHasherTest {
                 BigIntegerFnv1aHasher.PRIME64,
                 BigIntegerFnv1aHasher.MOD64
             );
-            long actual = new BigIntegerFnv1aHasher(
+            BigInteger actual = new BigIntegerFnv1aHasher(
                 BigIntegerFnv1aHasher.INIT64,
                 BigIntegerFnv1aHasher.PRIME64,
                 BigIntegerFnv1aHasher.MOD64
             ).update(b).digest();
-            assertEquals(expected.longValue(), actual, "Failed for byte value " + (b & 0xFF));
+            assertEquals(expected, actual, "Failed for byte value " + (b & 0xFF));
         }
     }
 }
